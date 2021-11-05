@@ -1,4 +1,4 @@
-name : Deploy my lambda function 
+name : Deploy my lambda function lab
 on:
   push:
     branches:
