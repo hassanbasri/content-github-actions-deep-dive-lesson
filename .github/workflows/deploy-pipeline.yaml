@@ -104,6 +104,6 @@ jobs:
             aws lambda update-function-code \
             --function-name my-function \
             --s3-bucket aws-bucket-basri \
-            --s3-key ${{github.sha}}.zip\
+            --s3-key ${{github.sha}}.zip \
             --publish
     
