@@ -89,6 +89,21 @@ jobs:
           aws-region: us-east-1  
       - name: upload to s3
         run: aws s3 cp ${{github.sha}}.zip s3://aws-bucket-basri/
-      
-    
+  deploy:
+    runs-on: ubuntu-latest
+    needs: upload
+    steps:
+      - name: Configure aws 
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{secrets.ACCESS_KEY}}
+          aws-secret-access-key: ${{secrets.SECRET_KEY}}
+          aws-region: us-east-1  
+      - name: update function code 
+        run: |
+            aws lambda update-function-code \
+            --function-name my-function \
+            --s3-bucket aws-bucket-basri \
+            --s3-key ${{github.sha}}.zip\
+            --publish
     
